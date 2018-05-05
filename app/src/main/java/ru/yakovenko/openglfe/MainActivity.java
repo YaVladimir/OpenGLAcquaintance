@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         }
         mGLSurfaceView = new GLSurfaceView(this);
         mGLSurfaceView.setEGLContextClientVersion(2);
-        mGLSurfaceView.setRenderer(new OpenGLRenderer());
+        mGLSurfaceView.setRenderer(new OpenGLRenderer(this));
         setContentView(mGLSurfaceView);
     }
 
