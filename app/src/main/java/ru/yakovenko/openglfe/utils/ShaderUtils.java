@@ -1,6 +1,7 @@
 package ru.yakovenko.openglfe.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import static android.opengl.GLES20.GL_COMPILE_STATUS;
 import static android.opengl.GLES20.GL_LINK_STATUS;
@@ -16,9 +17,13 @@ import static android.opengl.GLES20.glLinkProgram;
 import static android.opengl.GLES20.glShaderSource;
 
 public class ShaderUtils {
+
+    private static final String TAG = ShaderUtils.class.getName();
+
     public static int createProgram(int vertexShaderId, int fragmentShaderId) {
         final int programId = glCreateProgram();
         if (programId == 0) {
+            Log.v(TAG, "programId = 0");
             return 0;
         }
         glAttachShader(programId, vertexShaderId);
@@ -27,20 +32,24 @@ public class ShaderUtils {
         final int[] linkStatus = new int[1];
         glGetProgramiv(programId, GL_LINK_STATUS, linkStatus, 0);
         if (linkStatus[0] == 0) {
+            Log.v(TAG, "linkStatus[0] = 0");
             glDeleteProgram(programId);
             return 0;
         }
+        Log.v(TAG, "programId = " + programId);
         return programId;
     }
 
     public static int createShader(Context context, int type, int shaderRawId) {
         String shaderText = FileUtils.readTextFromRaw(context, shaderRawId);
+        Log.v(TAG, "ShaderText - " + shaderText);
         return ShaderUtils.createShader(type, shaderText);
     }
 
-    public static int createShader(int type, String shaderText) {
+    private static int createShader(int type, String shaderText) {
         final int shaderId = glCreateShader(type);
         if (shaderId == 0) {
+            Log.v(TAG, "shaderId = 0");
             return 0;
         }
         glShaderSource(shaderId, shaderText);
@@ -48,9 +57,11 @@ public class ShaderUtils {
         final int[] compileStatus = new int[1];
         glGetShaderiv(shaderId, GL_COMPILE_STATUS, compileStatus, 0);
         if (compileStatus[0] == 0) {
+            Log.v(TAG, "compileStatus[0] = 0");
             glDeleteShader(shaderId);
             return 0;
         }
+        Log.v(TAG, "shaderId = " + shaderId);
         return shaderId;
     }
 }
