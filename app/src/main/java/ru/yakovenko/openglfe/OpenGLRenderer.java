@@ -15,6 +15,8 @@ import ru.yakovenko.openglfe.utils.ShaderUtils;
 import static android.opengl.GLES20.GL_COLOR_BUFFER_BIT;
 import static android.opengl.GLES20.GL_FLOAT;
 import static android.opengl.GLES20.GL_FRAGMENT_SHADER;
+import static android.opengl.GLES20.GL_LINES;
+import static android.opengl.GLES20.GL_POINTS;
 import static android.opengl.GLES20.GL_TRIANGLES;
 import static android.opengl.GLES20.GL_VERTEX_SHADER;
 import static android.opengl.GLES20.glClear;
@@ -23,6 +25,7 @@ import static android.opengl.GLES20.glDrawArrays;
 import static android.opengl.GLES20.glEnableVertexAttribArray;
 import static android.opengl.GLES20.glGetAttribLocation;
 import static android.opengl.GLES20.glGetUniformLocation;
+import static android.opengl.GLES20.glLineWidth;
 import static android.opengl.GLES20.glUniform4f;
 import static android.opengl.GLES20.glUseProgram;
 import static android.opengl.GLES20.glVertexAttribPointer;
@@ -46,9 +49,38 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
      * Подготавливаем данные для передачи в шейдеры
      */
     private void prepareData() {
-        float[] vertices = {-0.5f, -0.2f, 0.0f, 0.2f, 0.5f, -0.2f};
+        float[] vertices = {
+                // треугольник 1
+                -0.9f, 0.8f, -0.9f, 0.2f, -0.5f, 0.8f,
+
+                // треугольник 2
+                -0.6f, 0.2f, -0.2f, 0.2f, -0.2f, 0.8f,
+
+                // треугольник 3
+                0.1f, 0.8f, 0.1f, 0.2f, 0.5f, 0.8f,
+
+                // треугольник 4
+                0.1f, 0.2f, 0.5f, 0.2f, 0.5f, 0.8f,
+
+                // линия 1
+                -0.7f, -0.1f, 0.7f, -0.1f,
+
+                // линия 2
+                -0.6f, -0.2f, 0.6f, -0.2f,
+
+                // точка 1
+                -0.5f, -0.3f,
+
+                // точка 2
+                0.0f, -0.3f,
+
+                // точка 3
+                0.5f, -0.3f,
+        };
         mVertexData = ByteBuffer
-                .allocateDirect(vertices.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
+                .allocateDirect(vertices.length * 4)
+                .order(ByteOrder.nativeOrder())
+                .asFloatBuffer();
         mVertexData.put(vertices);
     }
 
@@ -85,6 +117,9 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 gl) {
         glClear(GL_COLOR_BUFFER_BIT);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glLineWidth(10);
+        glDrawArrays(GL_TRIANGLES, 0, 12);
+        glDrawArrays(GL_LINES, 12, 4);
+        glDrawArrays(GL_POINTS, 16, 3);
     }
 }
