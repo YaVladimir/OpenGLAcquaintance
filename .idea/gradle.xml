@@ -9,6 +9,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/p0151_contextmenu" />
+            <option value="$PROJECT_DIR$/p0161_dynamiclayout" />
+            <option value="$PROJECT_DIR$/p0171_dynamiclayout2" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
