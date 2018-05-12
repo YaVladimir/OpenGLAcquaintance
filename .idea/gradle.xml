@@ -12,6 +12,11 @@
             <option value="$PROJECT_DIR$/p0151_contextmenu" />
             <option value="$PROJECT_DIR$/p0161_dynamiclayout" />
             <option value="$PROJECT_DIR$/p0171_dynamiclayout2" />
+            <option value="$PROJECT_DIR$/p0171_dynamiclayout22" />
+            <option value="$PROJECT_DIR$/p0181_dynamiclayout3" />
+            <option value="$PROJECT_DIR$/p0201_simpleanimation" />
+            <option value="$PROJECT_DIR$/p0261_intentfilter" />
+            <option value="$PROJECT_DIR$/savedinstancestateexample" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
