@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">P0311_SimpleIntents</string>
+    <string name="web">Web</string>
+    <string name="map">Map</string>
+    <string name="call">Call</string>
+    <string name="calendar">Calendar</string>
+    <string name="contacts">Contacts</string>
+</resources>
