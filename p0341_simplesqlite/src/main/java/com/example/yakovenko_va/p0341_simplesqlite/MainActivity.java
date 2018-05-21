@@ -15,8 +15,8 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = MainActivity.class.getName();
     DBHelper mDBHelper;
-    private Button mBtnAdd, mBtnRead, mBtnClear;
-    private EditText mEtName, mEtEmail;
+    private Button mBtnAdd, mBtnRead, mBtnClear, mBtnUpdate, mBtnDel;
+    private EditText mEtName, mEtEmail, mEtID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +32,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtnClear = findViewById(R.id.btnClear);
         mBtnClear.setOnClickListener(this);
 
+        mBtnUpdate = findViewById(R.id.btnUpd);
+        mBtnUpdate.setOnClickListener(this);
+
+        mBtnDel = findViewById(R.id.btnDel);
+        mBtnDel.setOnClickListener(this);
+
         mEtName = findViewById(R.id.etName);
         mEtEmail = findViewById(R.id.etEmail);
+        mEtID = findViewById(R.id.etID);
 
         mDBHelper = new DBHelper(this);
     }
@@ -44,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String name = mEtName.getText().toString();
         String email = mEtEmail.getText().toString();
+        String id = mEtID.getText().toString();
 
         SQLiteDatabase db = mDBHelper.getWritableDatabase();
 
@@ -80,6 +88,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, "Очиска таблицы");
                 int clearCount = db.delete("user", null, null);
                 Log.d(TAG, "Количество удаленных строк = " + clearCount);
+                break;
+            case R.id.btnUpd:
+                if ("".equalsIgnoreCase(id)) {
+                    break;
+                }
+                Log.d(TAG, "Обновление таблицы");
+                contentValues.put("name", name);
+                contentValues.put("email", email);
+                int updCount = db.update("user", contentValues, "id = ?",
+                        new String[]{id});
+                Log.d(TAG, "Количество обновленных строк " + updCount);
+                break;
+            case R.id.btnDel:
+                if ("".equalsIgnoreCase(id)) {
+                    break;
+                }
+                Log.d(TAG, "Удаление из таблицы");
+                int delCount = db.delete("user", "id = " + id, null);
+                Log.d(TAG, "Количество удаленных строк = " + delCount);
                 break;
         }
         mDBHelper.close();
