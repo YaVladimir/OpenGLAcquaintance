@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class DBHelper extends android.database.sqlite.SQLiteOpenHelper {
-        public DBHelper(Context context) {
+        DBHelper(Context context) {
             super(context, "myDB", null, 1);
         }
 
